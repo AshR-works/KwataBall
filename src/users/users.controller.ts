@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get } from '@nestjs/common';
+import { Body, Controller, Post, Delete, Get, Param, Put } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 //auth est mentionné pour le moment en attendant,on mettra en place un module auth pour gérer l'authentification et la sécurité des routes
@@ -20,17 +20,17 @@ export class UsersController {
   }
   // Récupérer un utilisateur par son ID
   @Get('users/:id')
-  async findOne(@Body('id') id: string) {
+  async findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
   // Mettre à jour un utilisateur
-  @Post('users/:id')
-  async update(@Body('id') id: string, @Body() updateUserDto: any) {
+  @Put('users/:id')
+  async update(@Param('id') id: string, @Body() updateUserDto: any) {
     return this.usersService.update(id, updateUserDto);
   }
   // Supprimer un utilisateur
-  @Post('users/:id/delete')
-  async remove(@Body('id') id: string) {
+  @Delete('users/:id/delete')
+  async remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
 }

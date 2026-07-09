@@ -3,30 +3,37 @@ import { CreateUserDto } from './dto/create-user.dto';
 export declare class UsersService {
     private prisma;
     constructor(prisma: PrismaService);
-    register(createUserDto: CreateUserDto): Promise<{
+    create(createUserDto: CreateUserDto): Promise<{
+        id: string;
         email: string;
         passwordHash: string;
         name: string;
         createdAt: Date;
-        id: number;
     }>;
     findAll(): Promise<{
+        id: string;
         email: string;
-        passwordHash: string;
         name: string;
         createdAt: Date;
-        id: number;
     }[]>;
-    findOne(id: number): Promise<{
+    findOne(id: string): Promise<{
+        id: string;
+        email: string;
+        name: string;
+        createdAt: Date;
+    }>;
+    update(id: string, updateUserDto: any): Promise<{
+        id: string;
         email: string;
         passwordHash: string;
         name: string;
         createdAt: Date;
-        id: number;
-    } | null>;
-    update(id: number, updateUserDto: any): Promise<(<T extends import("../../generated/prisma/models").UserUpdateArgs>(args: import("../../generated/prisma/internal/prismaNamespace").SelectSubset<T, import("../../generated/prisma/models").UserUpdateArgs<import("@prisma/client/runtime/client").DefaultArgs>>) => import("../../generated/prisma/models").Prisma__UserClient<import("@prisma/client/runtime/client").GetFindResult<import("../../generated/prisma/models").$UserPayload<import("@prisma/client/runtime/client").DefaultArgs>, T, {
-        omit: import("../../generated/prisma/internal/prismaNamespace").GlobalOmitConfig | undefined;
-    }>, never, import("@prisma/client/runtime/client").DefaultArgs, {
-        omit: import("../../generated/prisma/internal/prismaNamespace").GlobalOmitConfig | undefined;
-    }>)>;
+    }>;
+    remove(id: string): Promise<{
+        id: string;
+        email: string;
+        passwordHash: string;
+        name: string;
+        createdAt: Date;
+    }>;
 }

@@ -51,29 +51,76 @@ let UsersService = class UsersService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async register(createUserDto) {
-        const { email, password, name } = createUserDto;
-        const passwordHash = await bcrypt.hash(password, 10);
-        return this.prisma.user.create({
-            data: {
-                email: createUserDto.email,
-                passwordHash,
-                name: createUserDto.name,
-            },
-        });
+    async create(createUserDto) {
+        try {
+            const { email, password, name } = createUserDto;
+            const passwordHash = await bcrypt.hash(password, 10);
+            return this.prisma.user.create({
+                data: {
+                    email: createUserDto.email,
+                    passwordHash,
+                    name: createUserDto.name,
+                },
+            });
+        }
+        catch (error) {
+            console.error('Erreur create user:', error.message, error.code);
+            if (error.code === 'P2002') {
+                throw new common_1.HttpException('Email déjà utilisé', common_1.HttpStatus.BAD_REQUEST);
+            }
+            throw new common_1.HttpException('Erreur serveur', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     async findAll() {
-        return this.prisma.user.findMany();
-    }
-    async findOne(id) {
-        return this.prisma.user.findUnique({
-            where: {
-                id: id,
-            },
+        return this.prisma.user.findMany({
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                createdAt: true,
+            }
         });
     }
+    async findOne(id) {
+        const user = await this.prisma.user.findUnique({
+            where: { id },
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                createdAt: true,
+            }
+        });
+        if (!user) {
+            throw new common_1.HttpException('User not found', common_1.HttpStatus.NOT_FOUND);
+        }
+        return user;
+    }
     async update(id, updateUserDto) {
-        return this.prisma.user.update;
+        try {
+            const data = { ...updateUserDto };
+            if (updateUserDto.password) {
+                data.passwordHash = await bcrypt.hash(updateUserDto.password, 10);
+                delete data.password;
+            }
+            return await this.prisma.user.update({
+                where: { id },
+                data,
+            });
+        }
+        catch (error) {
+            if (error.code === 'P2025') {
+                throw new common_1.HttpException(`Utilisateur ${id} introuvable`, common_1.HttpStatus.NOT_FOUND);
+            }
+            throw new common_1.HttpException('Erreur serveur', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    async remove(id) {
+        const matchingUser = await this.prisma.user.findUnique({ where: { id } });
+        if (!matchingUser) {
+            throw new common_1.HttpException(`Utilisateur introuvable`, common_1.HttpStatus.NOT_FOUND);
+        }
+        return this.prisma.user.delete({ where: { id } });
     }
 };
 exports.UsersService = UsersService;
