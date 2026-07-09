@@ -1,0 +1,14 @@
+$kind: http-request
+url: http://localhost:3000/users
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "email": "test@example.com",
+      "passwordHash": "secret123",
+      "name": "Henri Test"
+    }
+order: 1000

@@ -1,0 +1,14 @@
+$kind: http-request
+url: http://localhost:3000/users/:id
+method: PUT
+headers:
+  Content-Type: application/json
+pathVariables:
+  id: ""
+body:
+  type: text
+  content: |-
+    {
+      "name": "Henri Updated"
+    }
+order: 4000

@@ -1,0 +1,59 @@
+{
+  "info": {
+    "name": "Users CRUD",
+    "_postman_id": "12345678-abcd-efgh-ijkl-9876543210",
+    "description": "Collection pour tester le CRUD Users avec DTO et Prisma",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create User",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\",\n  \"passwordHash\": \"secret123\",\n  \"name\": \"Henri Test\"\n}"
+        },
+        "url": { "raw": "http://localhost:3000/users", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["users"] }
+      }
+    },
+    {
+      "name": "Get All Users",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:3000/users", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["users"] }
+      }
+    },
+    {
+      "name": "Get User by ID",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "http://localhost:3000/users/:id", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["users", ":id"] }
+      }
+    },
+    {
+      "name": "Update User",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Henri Updated\"\n}"
+        },
+        "url": { "raw": "http://localhost:3000/users/:id", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["users", ":id"] }
+      }
+    },
+    {
+      "name": "Delete User",
+      "request": {
+        "method": "DELETE",
+        "url": { "raw": "http://localhost:3000/users/:id", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["users", ":id"] }
+      }
+    }
+  ]
+}

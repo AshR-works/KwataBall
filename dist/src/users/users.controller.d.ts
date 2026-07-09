@@ -5,15 +5,15 @@ export declare class UsersController {
     constructor(usersService: UsersService);
     register(createUserDto: CreateUserDto): Promise<{
         email: string;
-        name: string;
         passwordHash: string;
+        name: string;
         createdAt: Date;
         id: number;
     }>;
     findAll(): Promise<{
         email: string;
-        name: string;
         passwordHash: string;
+        name: string;
         createdAt: Date;
         id: number;
     }[]>;

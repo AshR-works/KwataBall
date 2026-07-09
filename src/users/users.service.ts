@@ -9,10 +9,9 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   //Methode pour enregistrer un nouvel utilisateur
-  async register(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
     const { email, password, name } = createUserDto;
     const passwordHash = await bcrypt.hash(password, 10);
-
     return this.prisma.user.create({
       data: {
         email: createUserDto.email,
@@ -21,19 +20,38 @@ export class UsersService {
       },
     });
   }
-
   // Récupérer tous les utilisateurs
   async findAll() {
     return this.prisma.user.findMany();
   }
   // Récupérer un utilisateur
+  async findOne(id: string) {
+    return this.prisma.user.findUnique({
+      where: { id }
+    });
 
-
-    
+  }
+  // Mettre à jour un utilisateur
+  async update(id: string, updateUserDto: any){
+    return this.prisma.user.update({
+      where: { id },
+      data: updateUserDto,
+    });
+  }
+  // Supprimer un utilisateur
+  async remove (id: string){
+    const matchingUser = await this.prisma.user.findUnique(
+      {
+        where: { id }
+      }
+    );
+    if (!matchingUser) {
+      throw new Error(`User with id ${id} not found`);
     }
+    this.prisma.user.delete({
+      where: { id },
+    });
+  }
 
 
-
-
-
-
+}

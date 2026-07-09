@@ -1,0 +1,2 @@
+$kind: collection
+description: Collection pour tester le CRUD Users avec DTO et Prisma

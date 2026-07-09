@@ -65,6 +65,16 @@ let UsersService = class UsersService {
     async findAll() {
         return this.prisma.user.findMany();
     }
+    async findOne(id) {
+        return this.prisma.user.findUnique({
+            where: {
+                id: id,
+            },
+        });
+    }
+    async update(id, updateUserDto) {
+        return this.prisma.user.update;
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
