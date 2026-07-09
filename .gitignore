@@ -1,56 +1,57 @@
-# compiled output
-/dist
-/node_modules
-/build
-
-# Logs
-logs
-*.log
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-
-# OS
+# ============================
+# Général
+# ============================
 .DS_Store
-
-# Tests
-/coverage
-/.nyc_output
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-# dotenv environment variable files
+*.log
 .env
-.env.development.local
-.env.test.local
-.env.production.local
 .env.local
+.env.*.local
+.vscode/
+.idea/
+*.iml
 
-# temp directory
-.temp
-.tmp
+# ============================
+# Flutter / Dart (mobile/)
+# ============================
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+mobile/.pub-cache/
+mobile/.pub/
+mobile/build/
+mobile/coverage/
+mobile/ios/Pods/
+mobile/ios/.symlinks/
+mobile/ios/Flutter/Flutter.framework
+mobile/ios/Flutter/Flutter.podspec
+mobile/android/.gradle/
+mobile/android/local.properties
+mobile/android/key.properties
+mobile/**/*.g.dart
+mobile/**/*.freezed.dart
+mobile/linux/flutter/ephemeral/
+mobile/macos/Flutter/ephemeral/
+mobile/windows/flutter/ephemeral/
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
+# ============================
+# Node / NestJS (backend/)
+# ============================
+backend/node_modules/
+backend/dist/
+backend/coverage/
+backend/.nest/
+backend/npm-debug.log*
+backend/yarn-debug.log*
+backend/yarn-error.log*
 
-# Diagnostic reports (https://nodejs.org/api/report.html)
-report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+# ============================
+# Bases de données locales / Docker
+# ============================
+*.sqlite
+*.sqlite3
+docker-compose.override.yml
+pgdata/
+
+/generated/prisma
+node_modules
