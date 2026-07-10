@@ -30,7 +30,7 @@ export class UsersService {
         throw new HttpException('Erreur serveur', HttpStatus.INTERNAL_SERVER_ERROR);
       }
   }
-  // Récupérer tous les utilisateurs
+  // Methode pour récupérer tous les utilisateurs
 async findAll() {
     return this.prisma.user.findMany({
       select: {
@@ -42,7 +42,7 @@ async findAll() {
       }
     });
   }
-  // Récupérer un utilisateur par son ID
+  // Methode pour récupérer un utilisateur par son ID
   async findOne(id: string) {
     const user = await this.prisma.user.findUnique({
       where: { id },
@@ -58,7 +58,7 @@ async findAll() {
     }
     return user;
   }
-  // Mettre à jour un utilisateur
+  // Methode pour mettre à jour un utilisateur
     async update(id: string, updateUserDto: UpdateUserDto) {
   try {
     const data: any = { ...updateUserDto };
@@ -88,7 +88,7 @@ async findAll() {
     throw new HttpException('Erreur serveur', HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }
-  // Supprimer un utilisateur
+  // Methode pour supprimer un utilisateur
   async remove(id: string) {
   const matchingUser = await this.prisma.user.findUnique({ where: { id } });
     if (!matchingUser) {

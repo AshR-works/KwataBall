@@ -1,13 +1,13 @@
 {
   "info": {
-    "name": "Users CRUD",
-    "_postman_id": "users-crud-collection",
-    "description": "Collection pour tester le CRUD des utilisateurs",
+    "name": "Teams CRUD",
+    "_postman_id": "teams-crud-collection",
+    "description": "Collection pour tester le CRUD des équipes",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Créer un utilisateur",
+      "name": "Créer une équipe",
       "request": {
         "method": "POST",
         "header": [
@@ -15,45 +15,45 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"email\": \"test@kwata.cm\",\n  \"password\": \"PBalloe123\",\n  \"name\": \"Motooooo\"\n}"
+          "raw": "{\n  \"name\": \"FC KwataBall\",\n  \"shortName\": \"KWB\",\n  \"city\": \"Douala\",\n  \"foundedYear\": 2024,\n  \"logoUrl\": \"http://logo.png\"\n}"
         },
         "url": {
-          "raw": "http://localhost:3000/auth/register",
+          "raw": "http://localhost:3000/auth/teams",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["auth", "register"]
+          "path": ["auth", "teams"]
         }
       }
     },
     {
-      "name": "Lister tous les utilisateurs",
+      "name": "Lister toutes les équipes",
       "request": {
         "method": "GET",
         "url": {
-          "raw": "http://localhost:3000/auth/users",
+          "raw": "http://localhost:3000/auth/teams",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["auth", "users"]
+          "path": ["auth", "teams"]
         }
       }
     },
     {
-      "name": "Récupérer un utilisateur par ID",
+      "name": "Récupérer une équipe par ID",
       "request": {
         "method": "GET",
         "url": {
-          "raw": "http://localhost:3000/auth/users/:id",
+          "raw": "http://localhost:3000/auth/teams/:id",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["auth", "users", ":id"]
+          "path": ["auth", "teams", ":id"]
         }
       }
     },
     {
-      "name": "Mettre à jour un utilisateur",
+      "name": "Mettre à jour une équipe",
       "request": {
         "method": "PUT",
         "header": [
@@ -61,27 +61,27 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"email\": \"test@kwata.cm\",\n  \"password\": \"NewPass123\",\n  \"name\": \"Motooooo Updated\"\n}"
+          "raw": "{\n  \"name\": \"KwataBall United\",\n  \"city\": \"Yaoundé\"\n}"
         },
         "url": {
-          "raw": "http://localhost:3000/auth/users/:id",
+          "raw": "http://localhost:3000/auth/teams/:id",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["auth", "users", ":id"]
+          "path": ["auth", "teams", ":id"]
         }
       }
     },
     {
-      "name": "Supprimer un utilisateur",
+      "name": "Supprimer une équipe",
       "request": {
         "method": "DELETE",
         "url": {
-          "raw": "http://localhost:3000/auth/users/:id/delete",
+          "raw": "http://localhost:3000/auth/teams/:id/delete",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["auth", "users", ":id", "delete"]
+          "path": ["auth", "teams", ":id", "delete"]
         }
       }
     }
