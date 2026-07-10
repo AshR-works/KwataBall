@@ -1,6 +1,7 @@
 import { Body, Controller, Post, Delete, Get, Param, Put } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 //auth est mentionné pour le moment en attendant,on mettra en place un module auth pour gérer l'authentification et la sécurité des routes
 @Controller('auth')
 // logique de gestion des utilisateurs
@@ -15,17 +16,17 @@ export class UsersController {
   }
   // Récupérer tous les utilisateurs
     @Get('users')
-  findAll() {
+    async findAll() {
     return this.usersService.findAll();
   }
   // Récupérer un utilisateur par son ID
   @Get('users/:id')
-  async findOne(@Param('id') id: string) {
+    async findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
   // Mettre à jour un utilisateur
   @Put('users/:id')
-  async update(@Param('id') id: string, @Body() updateUserDto: any) {
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
   // Supprimer un utilisateur

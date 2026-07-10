@@ -1,5 +1,6 @@
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 export declare class UsersService {
     private prisma;
     constructor(prisma: PrismaService);
@@ -22,18 +23,13 @@ export declare class UsersService {
         name: string;
         createdAt: Date;
     }>;
-    update(id: string, updateUserDto: any): Promise<{
+    update(id: string, updateUserDto: UpdateUserDto): Promise<{
         id: string;
         email: string;
-        passwordHash: string;
         name: string;
         createdAt: Date;
     }>;
     remove(id: string): Promise<{
-        id: string;
-        email: string;
-        passwordHash: string;
-        name: string;
-        createdAt: Date;
+        message: string;
     }>;
 }

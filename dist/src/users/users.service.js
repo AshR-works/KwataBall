@@ -106,11 +106,20 @@ let UsersService = class UsersService {
             return await this.prisma.user.update({
                 where: { id },
                 data,
+                select: {
+                    id: true,
+                    email: true,
+                    name: true,
+                    createdAt: true,
+                }
             });
         }
         catch (error) {
             if (error.code === 'P2025') {
                 throw new common_1.HttpException(`Utilisateur ${id} introuvable`, common_1.HttpStatus.NOT_FOUND);
+            }
+            if (error.code === 'P2002') {
+                throw new common_1.HttpException('Email déjà utilisé', common_1.HttpStatus.BAD_REQUEST);
             }
             throw new common_1.HttpException('Erreur serveur', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -120,7 +129,8 @@ let UsersService = class UsersService {
         if (!matchingUser) {
             throw new common_1.HttpException(`Utilisateur introuvable`, common_1.HttpStatus.NOT_FOUND);
         }
-        return this.prisma.user.delete({ where: { id } });
+        await this.prisma.user.delete({ where: { id } });
+        return { message: `Utilisateur ${id} supprimé avec succès` };
     }
 };
 exports.UsersService = UsersService;
