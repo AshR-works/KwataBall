@@ -22,3 +22,14 @@ model User {
   role         Role     @default(USER)
   createdAt    DateTime @default(now())
 }
+model Team {
+  id          String   @id @default(uuid())
+  name        String   @db.VarChar(150)
+  shortName   String   @db.VarChar(10)
+  city        String?  @db.VarChar(100)
+  foundedYear Int?
+  logoUrl     String?  @db.VarChar(255)
+  externalId  String?  @unique @db.VarChar(100)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

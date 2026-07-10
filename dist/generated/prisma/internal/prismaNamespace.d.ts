@@ -158,6 +158,7 @@ export type FieldRef<Model, FieldType> = runtime.FieldRef<Model, FieldType>;
 type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRef<Model, FieldType>;
 export declare const ModelName: {
     readonly User: "User";
+    readonly Team: "Team";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export interface TypeMapCb<GlobalOmitOptions = {}> extends runtime.Types.Utils.Fn<{
@@ -170,7 +171,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         omit: GlobalOmitOptions;
     };
     meta: {
-        modelProps: "user";
+        modelProps: "user" | "team";
         txIsolationLevel: TransactionIsolationLevel;
     };
     model: {
@@ -248,6 +249,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
                 };
             };
         };
+        Team: {
+            payload: Prisma.$TeamPayload<ExtArgs>;
+            fields: Prisma.TeamFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.TeamFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.TeamFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>;
+                };
+                findFirst: {
+                    args: Prisma.TeamFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.TeamFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>;
+                };
+                findMany: {
+                    args: Prisma.TeamFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>[];
+                };
+                create: {
+                    args: Prisma.TeamCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>;
+                };
+                createMany: {
+                    args: Prisma.TeamCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.TeamCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>[];
+                };
+                delete: {
+                    args: Prisma.TeamDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>;
+                };
+                update: {
+                    args: Prisma.TeamUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.TeamDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.TeamUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.TeamUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>[];
+                };
+                upsert: {
+                    args: Prisma.TeamUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamPayload>;
+                };
+                aggregate: {
+                    args: Prisma.TeamAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateTeam>;
+                };
+                groupBy: {
+                    args: Prisma.TeamGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.TeamGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.TeamCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.TeamCountAggregateOutputType> | number;
+                };
+            };
+        };
     };
 } & {
     other: {
@@ -288,6 +363,18 @@ export declare const UserScalarFieldEnum: {
     readonly createdAt: "createdAt";
 };
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
+export declare const TeamScalarFieldEnum: {
+    readonly id: "id";
+    readonly name: "name";
+    readonly shortName: "shortName";
+    readonly city: "city";
+    readonly foundedYear: "foundedYear";
+    readonly logoUrl: "logoUrl";
+    readonly externalId: "externalId";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";
@@ -298,6 +385,11 @@ export declare const QueryMode: {
     readonly insensitive: "insensitive";
 };
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode];
+export declare const NullsOrder: {
+    readonly first: "first";
+    readonly last: "last";
+};
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder];
 export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>;
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>;
 export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>;
@@ -306,6 +398,8 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>;
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>;
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>;
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>;
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>;
 export type BatchPayload = {
     count: number;
 };
@@ -332,6 +426,7 @@ export type PrismaClientOptions = ({
 };
 export type GlobalOmitConfig = {
     user?: Prisma.UserOmit;
+    team?: Prisma.TeamOmit;
 };
 export type LogLevel = 'info' | 'query' | 'warn' | 'error';
 export type LogDefinition = {
