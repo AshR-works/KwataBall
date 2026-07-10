@@ -9,6 +9,7 @@ export declare class UsersService {
         email: string;
         passwordHash: string;
         name: string;
+        role: import("../../generated/prisma/enums").Role;
         createdAt: Date;
     }>;
     findAll(): Promise<{
