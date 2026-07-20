@@ -17,19 +17,23 @@ const common_1 = require("@nestjs/common");
 const teams_service_1 = require("./teams.service");
 const create_team_dto_1 = require("./dto/create-team.dto");
 const update_team_dto_1 = require("./dto/update-team.dto");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const roles_guard_1 = require("../auth/roles.guard");
+const roles_decorator_1 = require("../auth/roles.decorator");
+const enums_1 = require("../../generated/prisma/enums");
 let TeamsController = class TeamsController {
     teamsService;
     constructor(teamsService) {
         this.teamsService = teamsService;
-    }
-    async create(createTeamDto) {
-        return this.teamsService.create(createTeamDto);
     }
     async findAll() {
         return this.teamsService.findAll();
     }
     async findOne(id) {
         return this.teamsService.findOne(id);
+    }
+    async create(createTeamDto) {
+        return this.teamsService.create(createTeamDto);
     }
     async update(id, updateTeamDto) {
         return this.teamsService.update(id, updateTeamDto);
@@ -40,27 +44,31 @@ let TeamsController = class TeamsController {
 };
 exports.TeamsController = TeamsController;
 __decorate([
-    (0, common_1.Post)('register'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_team_dto_1.CreateTeamDto]),
-    __metadata("design:returntype", Promise)
-], TeamsController.prototype, "create", null);
-__decorate([
-    (0, common_1.Get)('teams'),
+    (0, common_1.Get)(),
+    (0, roles_decorator_1.Roles)(enums_1.Role.ADMIN, enums_1.Role.EDITOR, enums_1.Role.USER),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], TeamsController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)('teams/:id'),
+    (0, common_1.Get)(':id'),
+    (0, roles_decorator_1.Roles)(enums_1.Role.ADMIN, enums_1.Role.EDITOR, enums_1.Role.USER),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], TeamsController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Put)('teams/:id'),
+    (0, common_1.Post)(),
+    (0, roles_decorator_1.Roles)(enums_1.Role.ADMIN, enums_1.Role.EDITOR),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_team_dto_1.CreateTeamDto]),
+    __metadata("design:returntype", Promise)
+], TeamsController.prototype, "create", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    (0, roles_decorator_1.Roles)(enums_1.Role.ADMIN, enums_1.Role.EDITOR),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -68,14 +76,16 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TeamsController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)('teams/:id/delete'),
+    (0, common_1.Delete)(':id'),
+    (0, roles_decorator_1.Roles)(enums_1.Role.ADMIN, enums_1.Role.EDITOR),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], TeamsController.prototype, "remove", null);
 exports.TeamsController = TeamsController = __decorate([
-    (0, common_1.Controller)('auth'),
+    (0, common_1.Controller)('teams'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
     __metadata("design:paramtypes", [teams_service_1.TeamsService])
 ], TeamsController);
 //# sourceMappingURL=teams.controller.js.map

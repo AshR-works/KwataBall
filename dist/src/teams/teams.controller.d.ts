@@ -4,17 +4,6 @@ import { UpdateTeamDto } from './dto/update-team.dto';
 export declare class TeamsController {
     private readonly teamsService;
     constructor(teamsService: TeamsService);
-    create(createTeamDto: CreateTeamDto): Promise<{
-        id: string;
-        name: string;
-        createdAt: Date;
-        shortName: string;
-        city: string | null;
-        foundedYear: number | null;
-        logoUrl: string | null;
-        externalId: string | null;
-        updatedAt: Date;
-    }>;
     findAll(): Promise<{
         id: string;
         name: string;
@@ -31,15 +20,26 @@ export declare class TeamsController {
         foundedYear: number | null;
         logoUrl: string | null;
     }>;
-    update(id: string, updateTeamDto: UpdateTeamDto): Promise<{
+    create(createTeamDto: CreateTeamDto): Promise<{
         id: string;
         name: string;
-        createdAt: Date;
         shortName: string;
         city: string | null;
         foundedYear: number | null;
         logoUrl: string | null;
         externalId: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
+    update(id: string, updateTeamDto: UpdateTeamDto): Promise<{
+        id: string;
+        name: string;
+        shortName: string;
+        city: string | null;
+        foundedYear: number | null;
+        logoUrl: string | null;
+        externalId: string | null;
+        createdAt: Date;
         updatedAt: Date;
     }>;
     remove(id: string): Promise<{

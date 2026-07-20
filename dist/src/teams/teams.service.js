@@ -20,20 +20,13 @@ let TeamsService = class TeamsService {
     async create(createTeamDto) {
         try {
             const { name, shortName, city, foundedYear, logoUrl } = createTeamDto;
-            return this.prisma.team.create({
-                data: {
-                    name,
-                    shortName,
-                    city,
-                    foundedYear,
-                    logoUrl,
-                },
+            return await this.prisma.team.create({
+                data: { name, shortName, city, foundedYear, logoUrl },
             });
         }
         catch (error) {
-            console.error('Erreur create team:', error.message, error.code);
             if (error.code === 'P2002') {
-                throw new common_1.HttpException('Equipe déjà créée', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('Equipe déjà existante', common_1.HttpStatus.BAD_REQUEST);
             }
             throw new common_1.HttpException('Erreur serveur', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -47,7 +40,7 @@ let TeamsService = class TeamsService {
                 city: true,
                 foundedYear: true,
                 logoUrl: true,
-            }
+            },
         });
     }
     async findOne(id) {
@@ -60,19 +53,18 @@ let TeamsService = class TeamsService {
                 city: true,
                 foundedYear: true,
                 logoUrl: true,
-            }
+            },
         });
         if (!team) {
-            throw new common_1.HttpException('Equipe introuvable', common_1.HttpStatus.NOT_FOUND);
+            throw new common_1.HttpException(`Equipe ${id} introuvable`, common_1.HttpStatus.NOT_FOUND);
         }
         return team;
     }
     async update(id, updateTeamDto) {
         try {
-            const data = { ...updateTeamDto };
-            return this.prisma.team.update({
+            return await this.prisma.team.update({
                 where: { id },
-                data,
+                data: { ...updateTeamDto },
             });
         }
         catch (error) {
@@ -82,17 +74,16 @@ let TeamsService = class TeamsService {
             if (error.code === 'P2002') {
                 throw new common_1.HttpException('shortName déjà utilisé', common_1.HttpStatus.BAD_REQUEST);
             }
-            console.error('Erreur update team:', error.message, error.code);
             throw new common_1.HttpException('Erreur serveur', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     async remove(id) {
-        const matchingTeam = await this.prisma.team.findUnique({ where: { id } });
-        if (!matchingTeam) {
-            throw new common_1.HttpException(`Equipe introuvable`, common_1.HttpStatus.NOT_FOUND);
+        const team = await this.prisma.team.findUnique({ where: { id } });
+        if (!team) {
+            throw new common_1.HttpException(`Equipe ${id} introuvable`, common_1.HttpStatus.NOT_FOUND);
         }
         await this.prisma.team.delete({ where: { id } });
-        return { message: `Equipe ${id} supprimée avec succès` };
+        return { message: `Equipe ${team.name} supprimée avec succès` };
     }
 };
 exports.TeamsService = TeamsService;
