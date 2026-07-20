@@ -1,17 +1,19 @@
-import { IsEmail, IsString, MinLength, IsOptional } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateUserDto {
   @IsOptional()
-  @IsEmail()
+  @IsString()
+  name?: string;
+
+  @IsOptional()
+  @IsString()
   email?: string;
 
   @IsOptional()
   @IsString()
-  @MinLength(6)
   password?: string;
 
   @IsOptional()
   @IsString()
-  @MinLength(2)
-  name?: string;
+  role?: string; // Ajout du champ role
 }

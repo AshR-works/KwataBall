@@ -7,7 +7,6 @@ export declare class UsersController {
     create(createUserDto: CreateUserDto): Promise<{
         id: string;
         email: string;
-        passwordHash: string;
         name: string;
         role: import("../../generated/prisma/enums").Role;
         createdAt: Date;

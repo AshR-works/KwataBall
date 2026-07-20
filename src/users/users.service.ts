@@ -10,26 +10,29 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   //Methode pour enregistrer un nouvel utilisateur
-  async create(createUserDto: CreateUserDto) {
-    
-    try {
-      const { email, password, name } = createUserDto;
-      const passwordHash = await bcrypt.hash(password, 10);
-      return this.prisma.user.create({
-        data: {
-          email: createUserDto.email,
-          passwordHash,
-          name: createUserDto.name,
-        },
-      });
-    } catch (error: any) {
-        console.error('Erreur create user:', error.message, error.code);
-        if (error.code === 'P2002') {
-          throw new HttpException('Email déjà utilisé', HttpStatus.BAD_REQUEST);
-        }
-        throw new HttpException('Erreur serveur', HttpStatus.INTERNAL_SERVER_ERROR);
+async create(createUserDto: CreateUserDto) {
+  try {
+    const { email, password, name } = createUserDto;
+    const passwordHash = await bcrypt.hash(password, 10);
+    return this.prisma.user.create({
+      data: { email, passwordHash, name },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,  //standard role is 'user' by default
+        createdAt: true,
+        // passwordHash absent
       }
+    });
+  } catch (error: any) {
+    console.error('Erreur create user:', error.message, error.code);
+    if (error.code === 'P2002') {
+      throw new HttpException('Email déjà utilisé', HttpStatus.BAD_REQUEST);
+    }
+    throw new HttpException('Erreur serveur', HttpStatus.INTERNAL_SERVER_ERROR);
   }
+}
   // Methode pour récupérer tous les utilisateurs
 async findAll() {
     return this.prisma.user.findMany({

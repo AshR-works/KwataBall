@@ -56,11 +56,14 @@ let UsersService = class UsersService {
             const { email, password, name } = createUserDto;
             const passwordHash = await bcrypt.hash(password, 10);
             return this.prisma.user.create({
-                data: {
-                    email: createUserDto.email,
-                    passwordHash,
-                    name: createUserDto.name,
-                },
+                data: { email, passwordHash, name },
+                select: {
+                    id: true,
+                    email: true,
+                    name: true,
+                    role: true,
+                    createdAt: true,
+                }
             });
         }
         catch (error) {
