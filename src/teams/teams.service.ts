@@ -8,18 +8,37 @@ export class TeamsService {
     constructor(private prisma: PrismaService) {}
 
     async create(createTeamDto: CreateTeamDto) {
-        try {
-            const { name, shortName, city, foundedYear, logoUrl } = createTeamDto;
-            return await this.prisma.team.create({
-                data: { name, shortName, city, foundedYear, logoUrl },
-            });
-        } catch (error: any) {
-            if (error.code === 'P2002') {
-                throw new HttpException('Equipe déjà existante', HttpStatus.BAD_REQUEST);
-            }
-            throw new HttpException('Erreur serveur', HttpStatus.INTERNAL_SERVER_ERROR);
+    try {
+        const existing = await this.prisma.team.findFirst({
+            where: {
+                name: createTeamDto.name,
+            },
+        });
+
+        if (existing) {
+            throw new HttpException(
+                'Une équipe avec ce nom existe déjà',
+                HttpStatus.CONFLICT,
+            );
         }
+
+        return await this.prisma.team.create({
+            data: { ...createTeamDto },
+        });
+
+    } catch (error: any) {
+        if (error instanceof HttpException) {
+            throw error;
+        }
+        if (error.code === 'P2002') {
+            throw new HttpException(
+                'Conflit de données uniques',
+                HttpStatus.CONFLICT,
+            );
+        }
+        throw new HttpException('Erreur serveur', HttpStatus.INTERNAL_SERVER_ERROR);
     }
+}
 
     async findAll() {
         return this.prisma.team.findMany({

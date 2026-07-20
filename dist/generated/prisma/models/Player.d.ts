@@ -228,6 +228,7 @@ export type PlayerOrderByWithRelationInput = {
 export type PlayerWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
     externalId?: string;
+    uniquePlayerIdentity?: Prisma.PlayerUniquePlayerIdentityCompoundUniqueInput;
     AND?: Prisma.PlayerWhereInput | Prisma.PlayerWhereInput[];
     OR?: Prisma.PlayerWhereInput[];
     NOT?: Prisma.PlayerWhereInput | Prisma.PlayerWhereInput[];
@@ -245,7 +246,7 @@ export type PlayerWhereUniqueInput = Prisma.AtLeast<{
     createdAt?: Prisma.DateTimeFilter<"Player"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Player"> | Date | string;
     team?: Prisma.XOR<Prisma.TeamScalarRelationFilter, Prisma.TeamWhereInput>;
-}, "id" | "externalId">;
+}, "id" | "externalId" | "uniquePlayerIdentity">;
 export type PlayerOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     firstName?: Prisma.SortOrder;
@@ -413,6 +414,12 @@ export type PlayerListRelationFilter = {
 };
 export type PlayerOrderByRelationAggregateInput = {
     _count?: Prisma.SortOrder;
+};
+export type PlayerUniquePlayerIdentityCompoundUniqueInput = {
+    firstName: string;
+    lastName: string;
+    dateOfBirth: Date | string;
+    teamId: string;
 };
 export type PlayerCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;

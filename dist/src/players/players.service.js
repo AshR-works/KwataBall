@@ -19,16 +19,35 @@ let PlayersService = class PlayersService {
     }
     async create(createPlayerDto) {
         try {
+            const existing = await this.prisma.player.findFirst({
+                where: {
+                    firstName: createPlayerDto.firstName,
+                    lastName: createPlayerDto.lastName,
+                    teamId: createPlayerDto.teamId,
+                },
+            });
+            if (existing) {
+                throw new common_1.HttpException('Ce joueur existe déjà dans cette équipe', common_1.HttpStatus.CONFLICT);
+            }
             return await this.prisma.player.create({
-                data: { ...createPlayerDto },
+                data: {
+                    ...createPlayerDto,
+                    dateOfBirth: new Date(createPlayerDto.dateOfBirth),
+                },
             });
         }
         catch (error) {
+            if (error instanceof common_1.HttpException) {
+                throw error;
+            }
             if (error.code === 'P2002') {
-                throw new common_1.HttpException('Joueur déjà existant', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('Conflit de données uniques', common_1.HttpStatus.CONFLICT);
+            }
+            if (error.code === 'P2003') {
+                throw new common_1.HttpException('Équipe introuvable', common_1.HttpStatus.BAD_REQUEST);
             }
             if (error.code === 'P2025') {
-                throw new common_1.HttpException('Equipe introuvable', common_1.HttpStatus.NOT_FOUND);
+                throw new common_1.HttpException('Impossible de créer le joueur', common_1.HttpStatus.NOT_FOUND);
             }
             throw new common_1.HttpException('Erreur serveur', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -105,17 +124,39 @@ let PlayersService = class PlayersService {
     }
     async update(id, updatePlayerDto) {
         try {
+            if (updatePlayerDto.firstName && updatePlayerDto.lastName && updatePlayerDto.teamId) {
+                const existing = await this.prisma.player.findFirst({
+                    where: {
+                        firstName: updatePlayerDto.firstName,
+                        lastName: updatePlayerDto.lastName,
+                        teamId: updatePlayerDto.teamId,
+                        NOT: { id },
+                    },
+                });
+                if (existing) {
+                    throw new common_1.HttpException('Un joueur avec ce nom existe déjà dans cette équipe', common_1.HttpStatus.CONFLICT);
+                }
+            }
             return await this.prisma.player.update({
                 where: { id },
-                data: { ...updatePlayerDto },
+                data: {
+                    ...updatePlayerDto,
+                    dateOfBirth: updatePlayerDto.dateOfBirth
+                        ? new Date(updatePlayerDto.dateOfBirth)
+                        : undefined,
+                },
             });
         }
         catch (error) {
+            console.error(error);
+            if (error.code === 'P2002') {
+                throw new common_1.HttpException('Conflit de données uniques', common_1.HttpStatus.CONFLICT);
+            }
             if (error.code === 'P2025') {
                 throw new common_1.HttpException(`Joueur ${id} introuvable`, common_1.HttpStatus.NOT_FOUND);
             }
-            if (error.code === 'P2002') {
-                throw new common_1.HttpException('Conflit de données', common_1.HttpStatus.BAD_REQUEST);
+            if (error.code === 'P2003') {
+                throw new common_1.HttpException('Équipe introuvable ou relation invalide', common_1.HttpStatus.BAD_REQUEST);
             }
             throw new common_1.HttpException('Erreur serveur', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }

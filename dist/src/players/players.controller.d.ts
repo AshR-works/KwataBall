@@ -61,9 +61,9 @@ export declare class PlayersController {
         photoUrl: string | null;
         isActive: boolean;
         externalId: string | null;
-        teamId: string;
         createdAt: Date;
         updatedAt: Date;
+        teamId: string;
     }>;
     update(id: string, updatePlayerDto: UpdatePlayerDto): Promise<{
         id: string;
@@ -78,9 +78,9 @@ export declare class PlayersController {
         photoUrl: string | null;
         isActive: boolean;
         externalId: string | null;
-        teamId: string;
         createdAt: Date;
         updatedAt: Date;
+        teamId: string;
     }>;
     remove(id: string): Promise<{
         message: string;
