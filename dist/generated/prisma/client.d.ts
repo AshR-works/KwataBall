@@ -8,3 +8,4 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma };
 export type User = Prisma.UserModel;
 export type Team = Prisma.TeamModel;
+export type Player = Prisma.PlayerModel;

@@ -12,12 +12,13 @@ const prisma_module_1 = require("../prisma/prisma.module");
 const users_module_1 = require("./users/users.module");
 const teams_module_1 = require("./teams/teams.module");
 const auth_module_1 = require("./auth/auth.module");
+const players_module_1 = require("./players/players.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [prisma_module_1.PrismaModule, users_module_1.UsersModule, teams_module_1.TeamsModule, auth_module_1.AuthModule],
+        imports: [prisma_module_1.PrismaModule, users_module_1.UsersModule, teams_module_1.TeamsModule, auth_module_1.AuthModule, players_module_1.PlayersModule],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

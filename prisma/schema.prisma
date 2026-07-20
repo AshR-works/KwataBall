@@ -32,4 +32,32 @@ model Team {
   externalId  String?  @unique @db.VarChar(100)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  players       Player[]
+}
+
+enum Position {
+  POINT_GUARD
+  SHOOTING_GUARD
+  SMALL_FORWARD
+  POWER_FORWARD
+  CENTER
+}
+
+model Player {
+  id            String    @id @default(uuid())
+  firstName     String    @db.VarChar(100)
+  lastName      String    @db.VarChar(100)
+  position      Position
+  jerseyNumber  Int
+  nationality   String    @db.VarChar(100)
+  dateOfBirth   DateTime
+  height        Int?
+  weight        Int?
+  photoUrl      String?   @db.VarChar(255)
+  isActive      Boolean   @default(true)
+  externalId    String?   @unique @db.VarChar(100)
+  teamId        String
+  team          Team      @relation(fields: [teamId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }

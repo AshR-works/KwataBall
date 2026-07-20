@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defineExtension = exports.NullsOrder = exports.QueryMode = exports.SortOrder = exports.TeamScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
+exports.defineExtension = exports.NullsOrder = exports.QueryMode = exports.SortOrder = exports.PlayerScalarFieldEnum = exports.TeamScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
 const runtime = __importStar(require("@prisma/client/runtime/client"));
 exports.PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError;
 exports.PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError;
@@ -61,7 +61,8 @@ exports.JsonNull = runtime.JsonNull;
 exports.AnyNull = runtime.AnyNull;
 exports.ModelName = {
     User: 'User',
-    Team: 'Team'
+    Team: 'Team',
+    Player: 'Player'
 };
 exports.TransactionIsolationLevel = runtime.makeStrictEnum({
     ReadUncommitted: 'ReadUncommitted',
@@ -85,6 +86,23 @@ exports.TeamScalarFieldEnum = {
     foundedYear: 'foundedYear',
     logoUrl: 'logoUrl',
     externalId: 'externalId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.PlayerScalarFieldEnum = {
+    id: 'id',
+    firstName: 'firstName',
+    lastName: 'lastName',
+    position: 'position',
+    jerseyNumber: 'jerseyNumber',
+    nationality: 'nationality',
+    dateOfBirth: 'dateOfBirth',
+    height: 'height',
+    weight: 'weight',
+    photoUrl: 'photoUrl',
+    isActive: 'isActive',
+    externalId: 'externalId',
+    teamId: 'teamId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };

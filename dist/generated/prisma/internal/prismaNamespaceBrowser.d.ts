@@ -13,6 +13,7 @@ export declare const AnyNull: import("@prisma/client-runtime-utils").AnyNullClas
 export declare const ModelName: {
     readonly User: "User";
     readonly Team: "Team";
+    readonly Player: "Player";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export declare const TransactionIsolationLevel: {
@@ -43,6 +44,24 @@ export declare const TeamScalarFieldEnum: {
     readonly updatedAt: "updatedAt";
 };
 export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum];
+export declare const PlayerScalarFieldEnum: {
+    readonly id: "id";
+    readonly firstName: "firstName";
+    readonly lastName: "lastName";
+    readonly position: "position";
+    readonly jerseyNumber: "jerseyNumber";
+    readonly nationality: "nationality";
+    readonly dateOfBirth: "dateOfBirth";
+    readonly height: "height";
+    readonly weight: "weight";
+    readonly photoUrl: "photoUrl";
+    readonly isActive: "isActive";
+    readonly externalId: "externalId";
+    readonly teamId: "teamId";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type PlayerScalarFieldEnum = (typeof PlayerScalarFieldEnum)[keyof typeof PlayerScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";

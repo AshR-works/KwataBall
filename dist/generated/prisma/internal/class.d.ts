@@ -36,5 +36,8 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
     get team(): Prisma.TeamDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
+    get player(): Prisma.PlayerDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
 }
 export declare function getPrismaClientClass(): PrismaClientConstructor;

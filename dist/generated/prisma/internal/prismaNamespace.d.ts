@@ -159,6 +159,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export declare const ModelName: {
     readonly User: "User";
     readonly Team: "Team";
+    readonly Player: "Player";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export interface TypeMapCb<GlobalOmitOptions = {}> extends runtime.Types.Utils.Fn<{
@@ -171,7 +172,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         omit: GlobalOmitOptions;
     };
     meta: {
-        modelProps: "user" | "team";
+        modelProps: "user" | "team" | "player";
         txIsolationLevel: TransactionIsolationLevel;
     };
     model: {
@@ -323,6 +324,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
                 };
             };
         };
+        Player: {
+            payload: Prisma.$PlayerPayload<ExtArgs>;
+            fields: Prisma.PlayerFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.PlayerFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PlayerPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.PlayerFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PlayerPayload>;
+                };
+                findFirst: {
+                    args: Prisma.PlayerFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PlayerPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.PlayerFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PlayerPayload>;
+                };
+                findMany: {
+                    args: Prisma.PlayerFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PlayerPayload>[];
+                };
+                create: {
+                    args: Prisma.PlayerCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PlayerPayload>;
+                };
+                createMany: {
+                    args: Prisma.PlayerCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.PlayerCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PlayerPayload>[];
+                };
+                delete: {
+                    args: Prisma.PlayerDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PlayerPayload>;
+                };
+                update: {
+                    args: Prisma.PlayerUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PlayerPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.PlayerDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.PlayerUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.PlayerUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PlayerPayload>[];
+                };
+                upsert: {
+                    args: Prisma.PlayerUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$PlayerPayload>;
+                };
+                aggregate: {
+                    args: Prisma.PlayerAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregatePlayer>;
+                };
+                groupBy: {
+                    args: Prisma.PlayerGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.PlayerGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.PlayerCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.PlayerCountAggregateOutputType> | number;
+                };
+            };
+        };
     };
 } & {
     other: {
@@ -375,6 +450,24 @@ export declare const TeamScalarFieldEnum: {
     readonly updatedAt: "updatedAt";
 };
 export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum];
+export declare const PlayerScalarFieldEnum: {
+    readonly id: "id";
+    readonly firstName: "firstName";
+    readonly lastName: "lastName";
+    readonly position: "position";
+    readonly jerseyNumber: "jerseyNumber";
+    readonly nationality: "nationality";
+    readonly dateOfBirth: "dateOfBirth";
+    readonly height: "height";
+    readonly weight: "weight";
+    readonly photoUrl: "photoUrl";
+    readonly isActive: "isActive";
+    readonly externalId: "externalId";
+    readonly teamId: "teamId";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type PlayerScalarFieldEnum = (typeof PlayerScalarFieldEnum)[keyof typeof PlayerScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";
@@ -398,6 +491,9 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>;
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>;
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>;
+export type EnumPositionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Position'>;
+export type ListEnumPositionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Position[]'>;
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>;
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>;
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>;
 export type BatchPayload = {
@@ -427,6 +523,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
     user?: Prisma.UserOmit;
     team?: Prisma.TeamOmit;
+    player?: Prisma.PlayerOmit;
 };
 export type LogLevel = 'info' | 'query' | 'warn' | 'error';
 export type LogDefinition = {
