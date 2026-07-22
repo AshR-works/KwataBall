@@ -16,8 +16,8 @@ export declare class PlayersService {
         weight: number | null;
         photoUrl: string | null;
         isActive: boolean;
-        externalId: string | null;
         createdAt: Date;
+        externalId: string | null;
         updatedAt: Date;
         teamId: string;
     }>;
@@ -77,8 +77,8 @@ export declare class PlayersService {
         weight: number | null;
         photoUrl: string | null;
         isActive: boolean;
-        externalId: string | null;
         createdAt: Date;
+        externalId: string | null;
         updatedAt: Date;
         teamId: string;
     }>;

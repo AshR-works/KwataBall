@@ -23,23 +23,23 @@ export declare class TeamsController {
     create(createTeamDto: CreateTeamDto): Promise<{
         id: string;
         name: string;
+        createdAt: Date;
         shortName: string;
         city: string | null;
         foundedYear: number | null;
         logoUrl: string | null;
         externalId: string | null;
-        createdAt: Date;
         updatedAt: Date;
     }>;
     update(id: string, updateTeamDto: UpdateTeamDto): Promise<{
         id: string;
         name: string;
+        createdAt: Date;
         shortName: string;
         city: string | null;
         foundedYear: number | null;
         logoUrl: string | null;
         externalId: string | null;
-        createdAt: Date;
         updatedAt: Date;
     }>;
     remove(id: string): Promise<{
