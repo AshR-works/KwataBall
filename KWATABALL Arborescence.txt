@@ -1,0 +1,98 @@
+KWATABALL/
+├── .vscode/
+├── backend/
+│   ├── API/
+│   ├── dist/
+│   ├── generated/
+│   ├── prisma/
+│   │   ├── migrations/
+│   │   ├── prisma.module.ts
+│   │   ├── prisma.service.ts
+│   │   ├── schema.prisma
+│   │   └── seed.ts
+│   ├── src/
+│   │   ├── auth/
+│   │   ├── common/
+│   │   ├── players/
+│   │   │   ├── dto/
+│   │   │   │   ├── create-player.dto.ts
+│   │   │   │   └── update-player.dto.ts
+│   │   │   ├── players.controller.spec.ts
+│   │   │   ├── players.controller.ts
+│   │   │   ├── players.module.ts
+│   │   │   ├── players.service.spec.ts
+│   │   │   └── players.service.ts
+│   │   ├── teams/
+│   │   │   ├── dto/
+│   │   │   │   ├── create-team.dto.ts
+│   │   │   │   └── update-team.dto.ts
+│   │   │   ├── teams.controller.spec.ts
+│   │   │   ├── teams.controller.ts
+│   │   │   ├── teams.module.ts
+│   │   │   ├── teams.service.spec.ts
+│   │   │   └── teams.service.ts
+│   │   ├── users/
+│   │   │   ├── dto/
+│   │   │   │   ├── create-user.dto.ts
+│   │   │   │   └── update-user.dto.ts
+│   │   │   ├── users.controller.spec.ts
+│   │   │   ├── users.controller.ts
+│   │   │   ├── users.module.ts
+│   │   │   ├── users.service.spec.ts
+│   │   │   └── users.service.ts
+│   │   ├── app.controller.spec.ts
+│   │   ├── app.controller.ts
+│   │   ├── app.module.ts
+│   │   ├── app.service.ts
+│   │   └── main.ts
+│   ├── .env
+│   ├── arborescence.txt
+│   ├── eslint.config.mjs
+│   ├── nest-cli.json
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── post.sh
+│   ├── prisma.config.ts
+│   ├── tsconfig.build.json
+│   └── tsconfig.json
+├── dist/
+├── docs/
+├── files/
+├── mobile/
+│   ├── .claude/
+│   ├── .expo/
+│   ├── assets/
+│   ├── node_modules/
+│   ├── src/
+│   │   ├── api/
+│   │   ├── components/
+│   │   ├── navigation/
+│   │   │   └── AppNavigation.tsx
+│   │   ├── screens/
+│   │   │   ├── auth/
+│   │   │   ├── explore/
+│   │   │   │   └── ExploreScreen.tsx
+│   │   │   ├── home/
+│   │   │   │   └── HomeScreen.tsx
+│   │   │   └── profile/
+│   │   ├── store/
+│   │   ├── types/
+│   │   │   └── index.ts
+│   │   └── utils/
+│   ├── .gitignore
+│   ├── AGENTS.md
+│   ├── app.json
+│   ├── App.tsx
+│   ├── CLAUDE.md
+│   ├── index.ts
+│   ├── LICENSE
+│   ├── package-lock.json
+│   ├── package.json
+│   └── tsconfig.json
+├── node_modules/
+├── test/
+├── .gitignore
+├── .prettierrc
+├── arborescence.txt
+├── package.json
+└── README.md
