@@ -34,7 +34,8 @@ async create(createUserDto: CreateUserDto) {
   }
 }
   // Methode pour récupérer tous les utilisateurs
-async findAll() {
+  // version stable sans pagination ni filtrage
+  async findAll() {
     return this.prisma.user.findMany({
       select: {
         id: true,
@@ -45,6 +46,7 @@ async findAll() {
       }
     });
   }
+  
   // Methode pour récupérer un utilisateur par son ID
   async findOne(id: string) {
     const user = await this.prisma.user.findUnique({

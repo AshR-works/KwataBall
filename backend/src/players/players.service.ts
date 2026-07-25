@@ -2,7 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreatePlayerDto } from './dto/create-player.dto';
 import { UpdatePlayerDto } from './dto/update-player.dto';
-
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 @Injectable()
 export class PlayersService {
     constructor(private prisma: PrismaService) {}
@@ -50,31 +50,20 @@ async create(createPlayerDto: CreatePlayerDto) {
     }
 }
 
-    async findAll() {
-        return this.prisma.player.findMany({
-            select: {
-                id: true,
-                firstName: true,
-                lastName: true,
-                position: true,
-                jerseyNumber: true,
-                nationality: true,
-                dateOfBirth: true,
-                height: true,
-                weight: true,
-                photoUrl: true,
-                isActive: true,
-                team: {
-                    select: {
-                        id: true,
-                        name: true,
-                        shortName: true,
-                    },
-                },
-            },
-        });
-    }
+    async findAll(paginationQuery: PaginationQueryDto) {
+        const { page = 1, limit = 20 } = paginationQuery;
+        const skip = (page - 1) * limit;
 
+        const [data, total] = await Promise.all([
+            this.prisma.player.findMany({ skip, take: limit }),
+            this.prisma.player.count(),
+        ]);
+
+        return {
+            data,
+            meta: { page, limit, total, totalPages: Math.ceil(total / limit) },
+        };
+        }
     async findOne(id: string) {
         const player = await this.prisma.player.findUnique({
             where: { id },

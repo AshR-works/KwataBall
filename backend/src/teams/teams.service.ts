@@ -2,6 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 @Injectable()
 export class TeamsService {
@@ -40,8 +41,14 @@ export class TeamsService {
     }
 }
 
-    async findAll() {
-        return this.prisma.team.findMany({
+    async findAll(paginationQuery: PaginationQueryDto) {
+        const { page = 1, limit = 20 } = paginationQuery;
+        const skip = (page - 1) * limit;
+
+        const [data, total] = await Promise.all([
+            this.prisma.team.findMany({
+            skip,
+            take: limit,
             select: {
                 id: true,
                 name: true,
@@ -50,9 +57,20 @@ export class TeamsService {
                 foundedYear: true,
                 logoUrl: true,
             },
-        });
-    }
+            }),
+            this.prisma.team.count(),
+        ]);
 
+        return {
+            data,
+            meta: {
+            page,
+            limit,
+            total,
+            totalPages: Math.ceil(total / limit),
+            },
+        };
+        }
     async findOne(id: string) {
         const team = await this.prisma.team.findUnique({
             where: { id },

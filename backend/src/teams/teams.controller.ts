@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Delete, Get, Param, Put, UseGuards } from '@nestjs/common';
+import { Body, Query, Controller, Post, Delete, Get, Param, Put, UseGuards } from '@nestjs/common';
 import { TeamsService } from './teams.service';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
@@ -6,6 +6,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { Role } from '../../generated/prisma/enums';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 @Controller('teams')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -13,11 +14,10 @@ export class TeamsController {
     constructor(private readonly teamsService: TeamsService) {}
 
 //endpoint pour récupérer toutes les équipes
-    @Get()
-    @Roles(Role.ADMIN, Role.EDITOR, Role.USER)
-    async findAll() {
-        return this.teamsService.findAll();
-  }
+@Get()
+async findAll(@Query() paginationQuery: PaginationQueryDto) {
+  return this.teamsService.findAll(paginationQuery);
+}
 //endpoint pour récupérer une équipe par son ID
     @Get(':id')
     @Roles(Role.ADMIN, Role.EDITOR, Role.USER)
