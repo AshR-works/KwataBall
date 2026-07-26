@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  FlatList,
-  StyleSheet,
-  ActivityIndicator,
-  Alert,
-} from 'react-native';
+import {View,Text,TextInput,TouchableOpacity,FlatList,StyleSheet,ActivityIndicator,Alert} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { teamsApi } from '../../api/teams.api';

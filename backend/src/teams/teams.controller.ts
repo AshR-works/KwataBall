@@ -7,23 +7,24 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { Role } from '../../generated/prisma/enums';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
-
+import { Public } from '../auth/public.decorator';
 @Controller('teams')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class TeamsController {
     constructor(private readonly teamsService: TeamsService) {}
 
 //endpoint pour récupérer toutes les équipes
-@Get()
-async findAll(@Query() paginationQuery: PaginationQueryDto) {
+    @Get()
+    @Public()
+    async findAll(@Query() paginationQuery: PaginationQueryDto) {
   return this.teamsService.findAll(paginationQuery);
 }
 //endpoint pour récupérer une équipe par son ID
     @Get(':id')
-    @Roles(Role.ADMIN, Role.EDITOR, Role.USER)
+    @Public()
     async findOne(@Param('id') id: string) {
-        return this.teamsService.findOne(id);
-  }
+    return this.teamsService.findOne(id);
+    }
 //endpoint pour créer une équipe
     @Post()
     @Roles(Role.ADMIN, Role.EDITOR)

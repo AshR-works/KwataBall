@@ -7,24 +7,25 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { Role } from '../../generated/prisma/enums';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
-
+import { Public } from '../auth/public.decorator';
 @Controller('players')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class PlayersController {
     constructor(private readonly playersService: PlayersService) {}
 
-@Get()
-async findAll(@Query() paginationQuery: PaginationQueryDto) {
-  return this.playersService.findAll(paginationQuery);
-}
+    @Get()
+    @Public()
+    async findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.playersService.findAll(paginationQuery);
+    }
     @Get(':id')
-    @Roles(Role.ADMIN, Role.EDITOR, Role.USER)
+    @Public()
     async findOne(@Param('id') id: string) {
         return this.playersService.findOne(id);
     }
 
     @Get('team/:teamId')
-    @Roles(Role.ADMIN, Role.EDITOR, Role.USER)
+    @Public()
     async findByTeam(@Param('teamId') teamId: string) {
         return this.playersService.findByTeam(teamId);
     }

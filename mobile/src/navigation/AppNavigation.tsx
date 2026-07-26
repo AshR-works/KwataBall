@@ -12,7 +12,7 @@ import RegisterScreen from '../screens/auth/RegisterScreen';
 
 // Screens App
 import HomeScreen from '../screens/home/HomeScreen';
-import ExploreScreen from '../screens/explore/ExploreScreen';
+import ExploreStack from './ExploreStack';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -52,7 +52,7 @@ function MainTabs() {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Accueil' }} />
-      <Tab.Screen name="Explore" component={ExploreScreen} options={{ title: 'Explorer' }} />
+      <Tab.Screen name="Explore" component={ExploreStack} options={{ title: 'Explorer', headerShown: false }} />
       <Tab.Screen name="Favoris" component={HomeScreen} options={{ title: 'Favoris' }} />
       <Tab.Screen name="Blog" component={HomeScreen} options={{ title: 'Blog' }} />
     </Tab.Navigator>
