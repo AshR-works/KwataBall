@@ -37,3 +37,12 @@ export interface AuthResponse {
   access_token: string;
   user: User;
 }
+export interface PaginatedResponse<T> {
+  data: T[];
+  meta: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
