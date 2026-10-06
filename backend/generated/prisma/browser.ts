@@ -32,3 +32,8 @@ export type Team = Prisma.TeamModel
  * 
  */
 export type Player = Prisma.PlayerModel
+/**
+ * Model Match
+ * 
+ */
+export type Match = Prisma.MatchModel

@@ -27,3 +27,13 @@ export const Position = {
 } as const
 
 export type Position = (typeof Position)[keyof typeof Position]
+
+
+export const MatchStatus = {
+  A_VENIR: 'A_VENIR',
+  TERMINE: 'TERMINE',
+  REPORTE: 'REPORTE',
+  ANNULE: 'ANNULE'
+} as const
+
+export type MatchStatus = (typeof MatchStatus)[keyof typeof MatchStatus]

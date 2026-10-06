@@ -22,6 +22,7 @@ model User {
   role         Role     @default(USER)
   createdAt    DateTime @default(now())
 }
+
 model Team {
   id          String   @id @default(uuid())
   name        String   @db.VarChar(150)
@@ -32,7 +33,10 @@ model Team {
   externalId  String?  @unique @db.VarChar(100)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  players       Player[]
+  players     Player[]
+
+  homeMatches Match[] @relation("HomeMatches")
+  awayMatches Match[] @relation("AwayMatches")
 }
 
 enum Position {
@@ -44,22 +48,47 @@ enum Position {
 }
 
 model Player {
-  id            String    @id @default(uuid())
-  firstName     String    @db.VarChar(100)
-  lastName      String    @db.VarChar(100)
-  position      Position
-  jerseyNumber  Int
-  nationality   String    @db.VarChar(100)
-  dateOfBirth   DateTime
-  height        Int?
-  weight        Int?
-  photoUrl      String?   @db.VarChar(255)
-  isActive      Boolean   @default(true)
-  externalId    String?   @unique @db.VarChar(100)
-  teamId        String
-  team          Team      @relation(fields: [teamId], references: [id])
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id           String   @id @default(uuid())
+  firstName    String   @db.VarChar(100)
+  lastName     String   @db.VarChar(100)
+  position     Position
+  jerseyNumber Int
+  nationality  String   @db.VarChar(100)
+  dateOfBirth  DateTime
+  height       Int?
+  weight       Int?
+  photoUrl     String?  @db.VarChar(255)
+  isActive     Boolean  @default(true)
+  externalId   String?  @unique @db.VarChar(100)
+  teamId       String
+  team         Team     @relation(fields: [teamId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@unique([firstName, lastName, dateOfBirth, teamId], name: "uniquePlayerIdentity")
+}
+
+enum MatchStatus {
+  A_VENIR
+  TERMINE
+  REPORTE
+  ANNULE
+}
+
+model Match {
+  id              String      @id @default(uuid())
+  competitionName String?     @db.VarChar(150)
+  homeTeamId      String
+  awayTeamId      String
+  scheduledAt     DateTime
+  venue           String?     @db.VarChar(150)
+  status          MatchStatus @default(A_VENIR)
+  homeScore       Int?
+  awayScore       Int?
+  externalId      String?     @unique @db.VarChar(100)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  homeTeam Team @relation("HomeMatches", fields: [homeTeamId], references: [id])
+  awayTeam Team @relation("AwayMatches", fields: [awayTeamId], references: [id])
 }
